@@ -8,17 +8,15 @@ export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    addPhotos: (state, action) => {
-      state.photos.push(action.payload);
+    addApp: (state, action) => {
+      state.app.push(action.payload);
     },
-    removePhotos: (state, action) => {
-      state.photos = state.photos.filter(
-        (photo) => photo.id !== action.payload
-      );
+    removeApp: (state, action) => {
+      state.app = state.app.filter((app) => app.id !== action.payload);
     },
   },
 });
 
-export const { addPhoto, removePhoto } = appSlice.actions;
+export const { addApp, removeApp } = appSlice.actions;
 
 export default appSlice.reducer;
