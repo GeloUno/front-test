@@ -3,7 +3,7 @@ import Timer from './Timer';
 import ThemeSwitch from './ThemeSwitch';
 import { HStack } from '@chakra-ui/react';
 
-const Header = () => {
+const Header = (props) => {
   const [seconds, setSeconds] = useState(0);
   const date = useMemo(() => new Date().toTimeString(), []);
   useEffect(() => {
@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <HStack justifyContent="space-between" padding="20px" height="10vh">
       <Timer seconds={seconds} date={date} />
-      <ThemeSwitch />
+      <ThemeSwitch toggleDarkMode={props.toggleDarkMode} />
     </HStack>
   );
 };
