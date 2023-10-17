@@ -9,7 +9,7 @@ export const appSlice = createSlice({
   initialState,
   reducers: {
     addApp: (state, action) => {
-      state.app.push(action.payload);
+      state.list.push(...action.payload);
     },
     removeApp: (state, action) => {
       state.app = state.app.filter((app) => app.id !== action.payload);
