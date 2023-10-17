@@ -2,6 +2,8 @@ import { useState } from 'react';
 import './App.css';
 import Header from './components/Header';
 import List from './components/List';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 function App() {
   const mode = localStorage.getItem('darkMode');
@@ -20,10 +22,12 @@ function App() {
   // use class "'dark-mode' to change theme"
 
   return (
-    <div className={`${isDarkMode}`}>
-      <Header toggleDarkMode={toggleDarkMode} />
-      <List />
-    </div>
+    <Provider store={store}>
+      <div className={`${isDarkMode}`}>
+        <Header toggleDarkMode={toggleDarkMode} />
+        <List />
+      </div>
+    </Provider>
   );
 }
 
