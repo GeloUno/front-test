@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Timer from "./Timer";
-import ThemeSwitch from "./ThemeSwitch";
-import { HStack } from "@chakra-ui/react";
+import React, { useEffect, useState, useMemo } from 'react';
+import Timer from './Timer';
+import ThemeSwitch from './ThemeSwitch';
+import { HStack } from '@chakra-ui/react';
 
-const Header = () => {
+const Header = (props) => {
   const [seconds, setSeconds] = useState(0);
-
+  const date = useMemo(() => new Date().toTimeString(), []);
   useEffect(() => {
     const interval = setInterval(() => {
-      setSeconds(seconds + 1);
+      setSeconds((prev) => prev + 1);
     }, 1000);
 
     return () => {
@@ -18,8 +18,8 @@ const Header = () => {
 
   return (
     <HStack justifyContent="space-between" padding="20px" height="10vh">
-      <Timer />
-      <ThemeSwitch />
+      <Timer seconds={seconds} date={date} />
+      <ThemeSwitch toggleDarkMode={props.toggleDarkMode} />
     </HStack>
   );
 };
