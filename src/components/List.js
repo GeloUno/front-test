@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPhotos } from '../api';
 import usePageBottom from './../hooks/usePageBottom';
 import { addApp } from '../reducers/app';
+import Item from './Item';
 const List = () => {
   const [page, setPage] = useState(1);
+  const [lastItem, setLastItem] = useState(false);
 
   const list = useSelector((state) => state.app.list);
 
@@ -18,9 +20,9 @@ const List = () => {
     return () => {};
   }, [reachedBottom]);
 
-  console.log('reachedBottom', reachedBottom);
   useEffect(() => {
     fetchPhotos({ perPage: 30, page }).then((data) => {
+      setLastItem(data.total);
       dispatch(addApp(data.images));
     });
 
@@ -29,10 +31,9 @@ const List = () => {
 
   return (
     <div style={{ minHeight: '90vh', width: '100%' }}>
-      {list.lenght !== 0 &&
-        list.map((item) => {
-          return <div key={item.id}>{item.user.name}</div>;
-        })}
+      {list.length !== 0 && <Item list={list} />}
+
+      {reachedBottom && lastItem - list.length > 0 && <p>Loading...</p>}
     </div>
   );
 };
